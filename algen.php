@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="js/dist/jquery.jqplot.css" />
+        <style>
+            body {
+                padding-top: 60px;
+                padding-bottom: 40px;
+            }
+        </style>
+        <link rel="stylesheet" href="css/bootstrap-responsive.min.css">
+        <link rel="stylesheet" href="css/main.css">
+
+        <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+    </head>
+    <body>
+<h1>Genetic Algorithm</h1>
+<div class="row"> 
+    <div class="span3 well">  
+
+	<form name="driver">
+	    <p>
+		<label for="dataSet">Input dataset:</label>
+		<input type="text" id="dataSet" name="dataSet" value="[[-10,-100000], [-9,-59049], [-8,-32768], [-7,-16807], [-6,-7776], [-5,-3125], [-4,-1024], [-3,-243], [-2,-32], [-1,-1], [0,0], [1,1], [2,32], [3,243], [4,1024], [5,3125], [6,7776], [7,16807], [8,32768], [9,59049], [10,100000] ]">	
+	    </p>
+
+	    <p>
+		<label for="mutationPropability">Mutation propability:</label>
+		<input type="number" id="mutationPropability" name="mutationPropability" value="0.02" max="1" min="0" step="0.001">	
+	    </p>
+	    <p>
+		<label for="crossPropability">Chromosome crossing propability:</label>
+		<input type="number" id ="crossPropability" name ="crossPropability" max="1" value="0.5" min="0" step="0.01">	
+	    </p>
+	    <p>
+		<label for="populationLength">Population Count (min 10):</label>
+		<input type="number" id ="populationLength" name ="populationLength" value="20" min="10" step="1">	
+	    </p>
+	    <p>
+		<label for="iterationsCount">Generations Count (min 10):</label>
+		<input type="number" id ="iterationsCount" name ="iterationsCount" value="10" min="10"  step="1">	
+	    </p>
+	    <input type ="button" value="Run" name="startButton" id="startButton">
+
+	</form>
+    </div> 
+    <div id="fitdiv" style="height:300px;" class="span8 well"></div>
+    <div  id="resultDiv" style="height:300px;" class="span8 well"></div>
+
+</div>
+
+<!-- Main hero unit for a primary marketing message or call to action -->
+
+
+<!-- Example row of columns -->
+
+<hr>
+<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.1.js"><\/script>')</script>
+<script src="js/vendor/bootstrap.min.js"></script>
+<script language="javascript" type="text/javascript" src="js/dist/jquery.min.js"></script>
+<script language="javascript" type="text/javascript" src="js/dist/jquery.jqplot.js"></script>
+<script type="text/javascript" src="js/ai/aiProcessor.js"></script>
+<script type="text/javascript" src="js/ai/aiController.js"></script>
+<script type="text/javascript" src="js/ai/aiView.js"></script>
+
+
+<script src="js/ai/main.js"></script>
+<div class="row" id="help">
+    <div class="span11 well">
+	<h2>Genetic Algorithm - help</h2>
+	<p>First of all use non Microsoft based browser :)</p>
+	<p><strong>Input dataset</strong> - here You place javaScript array consonsisted of 2 elemet arrays indicating argument and value of curve You'd like to fit. Fittnes function of algorithm is scaled to work best with valurs from range +/-10<sup>5</sup>.<br>
+	    Other fields are just parameters determining behaviour of algorihm - You can chage them and click <strong>Run</strong> to see what will happen.<br>
+	    the upper canvas grid - shows the fittnes function of best genome in each population - the lower one shows the fitted function on Your base dataset.
+	</p>
+	<h3>Tehcnical blah blah...</h3>
+	<p>Idea of this simple genetic algorithm is to fit input experimental data set with polinomial of maximum level 8.</p>
+	<h4>How do genetic algorithms work?</h4>
+	<p>In general we need a problem that is hard to solvel with analitical methods. When we already have one than we randomize x times the solution. This randomized results are first generation of our algorithm. For each of this solution (single solution is called a chromosome) we check how good do they solve the problem.
+	    Than better solution, then higher rate our chromosome gets, and has higher chance to be used for biulding next generation.
+	    After rating the first generation randomize next one but now we use weights that we assigned to the chromosomes from previous generation - better ones have higher chance to be selected. The selected chromosomes are parents to the second generation - Their children are made by randomly (or useing more sophisticated methods) crossing the parents solutions.
+	    <p>When we got the second generation, we slightly, and seldom change it's chromosomes - this is called mutation. When it's done we once again rate, and randomize parents from the recived population. We do it over and over again until we get satisfying solution to our problem. </p>
+	<p>In this case we want to find the polinomial that best fits the dataset. Single chromosome is made of 8 polinomial coeficients and maximum polinomial level. After each generation best solutions are mixed with each other (not all children have to be mixed - but hight (over 0.5) propability of crossing gives better results - and mutated (with propability of 2-10% for best results).
+	</p></div>	
+</div>
+</body>
+</html>
